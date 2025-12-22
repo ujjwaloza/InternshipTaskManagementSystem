@@ -1,0 +1,33 @@
+﻿@{
+    ViewData["Title"] = "Weekly Report";
+}
+
+<div class="container mt-5">
+    <div class="card shadow-lg border-0">
+        <div class="card-header bg-primary text-white">
+            <h4 class="mb-0">Submit Weekly Report</h4>
+        </div>
+
+        <div class="card-body">
+            <form method="post">
+                <div class="mb-3">
+                    <label class="form-label">Week Number</label>
+                    <input type="number" name="WeekNumber" class="form-control" required />
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Report Content</label>
+                    <textarea name="Content" class="form-control" rows="5" required></textarea>
+                </div>
+
+                <button type="submit" class="btn btn-success">
+                    Submit Report
+                </button>
+
+                <a asp-action="Dashboard" class="btn btn-secondary ms-2">
+                    Back
+                </a>
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,17 @@
+﻿@model InternshipTaskManagementSystem.Models.User
+
+<h2>Create User</h2>
+
+<form method="post">
+    <input asp-for="FullName" placeholder="Full Name" /><br /><br />
+    <input asp-for="Email" placeholder="Email" /><br /><br />
+    <input asp-for="Password" placeholder="Password" /><br /><br />
+
+    <select asp-for="Role">
+        <option>Admin</option>
+        <option>Student</option>
+        <option>Mentor</option>
+    </select><br /><br />
+
+    <button type="submit">Save</button>
+</form>

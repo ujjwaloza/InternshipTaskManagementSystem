@@ -1,0 +1,22 @@
+﻿@model List<WeeklyReport>
+
+<h2>All Weekly Reports</h2>
+
+<table class="table table-striped">
+    <tr>
+        <th>Week</th>
+        <th>Student</th>
+        <th>Report</th>
+        <th>Date</th>
+    </tr>
+
+    @foreach (var r in Model)
+    {
+        <tr>
+            <td>@r.WeekNumber</td>
+            <td>@r.StudentId</td>
+            <td>@r.Content</td>
+            <td>@r.SubmittedOn</td>
+        </tr>
+    }
+</table>

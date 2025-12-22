@@ -1,0 +1,27 @@
+﻿@model List<WeeklyReport>
+
+<div class="container mt-4">
+    <h3>📊 Student Weekly Reports</h3>
+
+    <table class="table table-striped">
+        <thead class="table-dark">
+            <tr>
+                <th>Student</th>
+                <th>Week</th>
+                <th>Content</th>
+                <th>Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var r in Model)
+            {
+                <tr>
+                    <td>@r.Student?.FullName</td>
+                    <td>@r.WeekNumber</td>
+                    <td>@r.Content</td>
+                    <td>@r.SubmittedOn.ToShortDateString()</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

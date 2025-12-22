@@ -1,0 +1,79 @@
+﻿@{
+    ViewData["Title"] = "Admin Dashboard";
+}
+
+<h2 class="fw-bold text-primary mb-4">
+    <i class="bi bi-speedometer2"></i> Admin Dashboard
+</h2>
+
+<div class="row g-4">
+
+    <!-- MANAGE USERS -->
+    <div class="col-md-4">
+        <div class="card shadow border-0 dashboard-card">
+            <div class="card-body text-center">
+                <i class="bi bi-people-fill fs-1 text-primary"></i>
+                <h5 class="mt-3 fw-semibold">Manage Users</h5>
+                <p class="text-muted small">Add, edit and remove users</p>
+                <a asp-action="Users" class="btn btn-primary w-100">
+                    Open
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- MANAGE PROJECTS -->
+    <div class="col-md-4">
+        <div class="card shadow border-0 dashboard-card">
+            <div class="card-body text-center">
+                <i class="bi bi-kanban fs-1 text-success"></i>
+                <h5 class="mt-3 fw-semibold">Manage Projects</h5>
+                <p class="text-muted small">Create and assign projects</p>
+                <a asp-action="Projects" class="btn btn-success w-100">
+                    Open
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- VIEW REPORTS -->
+    <div class="col-md-4">
+        <div class="card shadow border-0 dashboard-card">
+            <div class="card-body text-center">
+                <i class="bi bi-file-earmark-text fs-1 text-warning"></i>
+                <h5 class="mt-3 fw-semibold">Weekly Reports</h5>
+                <p class="text-muted small">Monitor student progress</p>
+                <a asp-action="WeeklyReports" class="btn btn-warning">
+                    View Weekly Reports
+                </a>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<hr class="my-4" />
+
+<!-- QUICK LINKS -->
+<div class="card shadow-sm">
+    <div class="card-body">
+        <h5 class="fw-semibold mb-3">
+            <i class="bi bi-lightning"></i> Quick Actions
+        </h5>
+
+        <div class="d-flex gap-3 flex-wrap">
+            <a href="/Admin/CreateProject" class="btn btn-outline-primary">
+                <i class="bi bi-plus-circle"></i> Create Project
+            </a>
+
+            <a href="/Admin/ViewProjects" class="btn btn-outline-success">
+                <i class="bi bi-eye"></i> View Projects
+            </a>
+
+            <a href="/Account/Logout" class="btn btn-outline-danger">
+                <i class="bi bi-box-arrow-right"></i> Logout
+            </a>
+        </div>
+    </div>
+</div>

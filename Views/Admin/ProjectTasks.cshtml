@@ -1,0 +1,18 @@
+﻿@model List<InternshipTaskManagementSystem.Models.TaskModel>
+
+<h2>Project Tasks</h2>
+
+<table border="1">
+    <tr>
+        <th>Task</th>
+        <th>Status</th>
+    </tr>
+
+    @foreach (var t in Model)
+    {
+        <tr>
+            <td>@t.Title</td>
+            <td>@t.Status</td>
+        </tr>
+    }
+</table>

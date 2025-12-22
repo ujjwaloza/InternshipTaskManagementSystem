@@ -1,0 +1,85 @@
+﻿@{
+    ViewData["Title"] = "Mentor Dashboard";
+}
+
+<h2 class="fw-bold text-success mb-4">
+    <i class="bi bi-person-badge-fill"></i> Mentor Dashboard
+</h2>
+
+<div class="row g-4">
+
+    <!-- ASSIGNED STUDENTS -->
+    <div class="col-md-4">
+        <div class="card shadow border-0 dashboard-card">
+            <div class="card-body text-center">
+                <i class="bi bi-people fs-1 text-primary"></i>
+                <h5 class="mt-3 fw-semibold">Assigned Students</h5>
+                <p class="text-muted small">
+                    View students under your mentorship
+                </p>
+                <a asp-action="AssignedStudents" class="btn btn-primary w-100">
+                    View Students
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- ASSIGN TASKS -->
+    <div class="col-md-4">
+        <div class="card shadow border-0 dashboard-card">
+            <div class="card-body text-center">
+                <i class="bi bi-list-check fs-1 text-success"></i>
+                <h5 class="mt-3 fw-semibold">Assign Tasks</h5>
+                <p class="text-muted small">
+                    Create and assign tasks to students
+                </p>
+                <a asp-action="AssignTask" class="btn btn-success w-100">
+                    Assign Task
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- REVIEW PROGRESS -->
+    <div class="col-md-4">
+        <div class="card shadow border-0 dashboard-card">
+            <div class="card-body text-center">
+                <i class="bi bi-graph-up-arrow fs-1 text-warning"></i>
+                <h5 class="mt-3 fw-semibold">Student Progress</h5>
+                <p class="text-muted small">
+                    Review task status & weekly reports
+                </p>
+                <a asp-action="AssignedStudents" class="btn btn-warning w-100">
+                    Review Progress
+                </a>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<hr class="my-4" />
+
+<!-- QUICK LINKS -->
+<div class="card shadow-sm">
+    <div class="card-body">
+        <h5 class="fw-semibold mb-3">
+            <i class="bi bi-lightning"></i> Quick Actions
+        </h5>
+
+        <div class="d-flex gap-3 flex-wrap">
+            <a asp-action="AssignedStudents" class="btn btn-outline-primary">
+                <i class="bi bi-people"></i> Students
+            </a>
+
+            <a asp-action="AssignTask" class="btn btn-outline-success">
+                <i class="bi bi-plus-circle"></i> Assign Task
+            </a>
+
+            <a href="/Account/Logout" class="btn btn-outline-danger">
+                <i class="bi bi-box-arrow-right"></i> Logout
+            </a>
+        </div>
+    </div>
+</div>
+s

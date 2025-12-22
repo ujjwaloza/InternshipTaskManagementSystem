@@ -1,0 +1,15 @@
+﻿@model InternshipTaskManagementSystem.Models.TaskModel
+
+<h2>Assign Task</h2>
+
+<form method="post">
+    <input type="hidden" asp-for="ProjectId" value="@ViewBag.ProjectId" />
+
+    <label>Title</label>
+    <input asp-for="Title" required />
+
+    <label>Description</label>
+    <textarea asp-for="Description"></textarea>
+
+    <button type="submit">Assign</button>
+</form>

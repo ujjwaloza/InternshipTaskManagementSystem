@@ -1,0 +1,19 @@
+﻿@model InternshipTaskManagementSystem.Models.User
+
+<h2>Edit User</h2>
+
+<form method="post">
+    <input type="hidden" asp-for="UserId" />
+
+    <input asp-for="FullName" /><br /><br />
+    <input asp-for="Email" /><br /><br />
+    <input asp-for="Password" /><br /><br />
+
+    <select asp-for="Role">
+        <option>Admin</option>
+        <option>Student</option>
+        <option>Mentor</option>
+    </select><br /><br />
+
+    <button type="submit">Update</button>
+</form>

@@ -1,0 +1,29 @@
+﻿@model InternshipTaskManagementSystem.Models.Project
+<h2>Edit Project</h2>
+
+<form method="post">
+    <input type="hidden" asp-for="ProjectId" />
+
+    <input asp-for="Title" /><br /><br />
+    <textarea asp-for="Description"></textarea><br /><br />
+
+    <select asp-for="StudentId">
+        @foreach (var s in ViewBag.Students)
+        {
+            <option value="@s.UserId" selected="@(s.UserId == Model.StudentId)">
+                @s.FullName
+            </option>
+        }
+    </select><br /><br />
+
+    <select asp-for="MentorId">
+        @foreach (var m in ViewBag.Mentors)
+        {
+            <option value="@m.UserId" selected="@(m.UserId == Model.MentorId)">
+                @m.FullName
+            </option>
+        }
+    </select><br /><br />
+
+    <button type="submit">Update</button>
+</form>

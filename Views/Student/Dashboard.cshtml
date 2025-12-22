@@ -1,0 +1,100 @@
+﻿@{
+    ViewData["Title"] = "Student Dashboard";
+}
+
+<h2 class="fw-bold text-info mb-4">
+    <i class="bi bi-mortarboard-fill"></i> Student Dashboard
+</h2>
+
+<!-- DEBUG INFO (Keep during development, remove before final submission) -->
+<div class="alert alert-secondary py-2">
+    <small>
+        <b>DEBUG UserId:</b> @ViewBag.UserId |
+        <b>Role:</b> @ViewBag.Role
+    </small>
+</div>
+
+<div class="row g-4">
+
+    <!-- VIEW TASKS -->
+    <div class="col-md-4">
+        <div class="card shadow border-0 dashboard-card">
+            <div class="card-body text-center">
+                <i class="bi bi-list-task fs-1 text-primary"></i>
+                <h5 class="mt-3 fw-semibold">My Tasks</h5>
+                <p class="text-muted small">
+                    View and update assigned tasks
+                </p>
+                <a asp-controller="Student"
+                   asp-action="ViewTasks"
+                   class="btn btn-primary w-100">
+                    View Tasks
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- SUBMIT WEEKLY REPORT -->
+    <div class="col-md-4">
+        <div class="card shadow border-0 dashboard-card">
+            <div class="card-body text-center">
+                <i class="bi bi-journal-text fs-1 text-success"></i>
+                <h5 class="mt-3 fw-semibold">Weekly Report</h5>
+                <p class="text-muted small">
+                    Submit your weekly progress report
+                </p>
+                <a asp-action="SubmitReport"
+                   class="btn btn-success w-100">
+                    Submit Report
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- VIEW FEEDBACK -->
+    <div class="col-md-4">
+        <div class="card shadow border-0 dashboard-card">
+            <div class="card-body text-center">
+                <i class="bi bi-chat-left-text fs-1 text-warning"></i>
+                <h5 class="mt-3 fw-semibold">Mentor Feedback</h5>
+                <p class="text-muted small">
+                    View mentor comments & feedback
+                </p>
+                <a asp-action="MyReports"
+                   class="btn btn-warning w-100">
+                    View Feedback
+                </a>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<hr class="my-4" />
+
+<!-- QUICK LINKS -->
+<div class="card shadow-sm">
+    <div class="card-body">
+        <h5 class="fw-semibold mb-3">
+            <i class="bi bi-lightning"></i> Quick Actions
+        </h5>
+
+        <div class="d-flex gap-3 flex-wrap">
+            <a asp-controller="Student"
+               asp-action="ViewTasks"
+               class="btn btn-outline-primary">
+                <i class="bi bi-list-check"></i> Tasks
+            </a>
+
+            <a asp-action="SubmitReport"
+               class="btn btn-outline-success">
+                <i class="bi bi-pencil-square"></i> Weekly Report
+            </a>
+
+            <a href="/Account/Logout"
+               class="btn btn-outline-danger">
+                <i class="bi bi-box-arrow-right"></i> Logout
+            </a>
+        </div>
+    </div>
+</div>

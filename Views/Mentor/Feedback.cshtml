@@ -1,0 +1,38 @@
+﻿@{
+    ViewData["Title"] = "Mentor Feedback";
+}
+
+<div class="container mt-5">
+    <div class="card shadow border-0">
+        <div class="card-header bg-success text-white">
+            <h4 class="mb-0">Mentor Feedback</h4>
+        </div>
+
+        <div class="card-body">
+            <form method="post">
+                <input type="hidden" name="ReportId" value="@ViewBag.ReportId" />
+
+                <div class="mb-3">
+                    <label class="form-label">Feedback</label>
+                    <textarea name="Feedback" class="form-control" rows="5" required></textarea>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Status</label>
+                    <select name="Status" class="form-select">
+                        <option value="Approved">Approved</option>
+                        <option value="Needs Improvement">Needs Improvement</option>
+                    </select>
+                </div>
+
+                <button type="submit" class="btn btn-success">
+                    Submit Feedback
+                </button>
+
+                <a asp-action="WeeklyReports" class="btn btn-secondary ms-2">
+                    Back
+                </a>
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,13 @@
+﻿@model WeeklyReport
+
+<h2>Submit Weekly Report</h2>
+
+<form asp-action="WeeklyReport" method="post">
+    <label>Week Number</label>
+    <input asp-for="WeekNumber" class="form-control" required />
+
+    <label>Report</label>
+    <textarea asp-for="Content" class="form-control" required></textarea>
+
+    <button class="btn btn-success mt-2">Submit</button>
+</form>

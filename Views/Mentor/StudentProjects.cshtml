@@ -1,0 +1,19 @@
+﻿@model List<InternshipTaskManagementSystem.Models.Project>
+
+<h2>Student Projects</h2>
+
+<table border="1">
+    @foreach (var p in Model)
+    {
+        <tr>
+            <td>@p.Title</td>
+            <td>
+                <a asp-action="AssignTask"
+                   asp-route-projectId="@p.ProjectId"
+                   class="btn btn-success">
+                    Assign Task
+                </a>
+            </td>
+        </tr>
+    }
+</table>

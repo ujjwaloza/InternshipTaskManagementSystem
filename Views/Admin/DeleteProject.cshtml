@@ -1,0 +1,9 @@
+﻿@model InternshipTaskManagementSystem.Models.Project
+
+<h2>Delete Project</h2>
+<p>Delete project <b>@Model.Title</b>?</p>
+
+<form method="post">
+    <input type="hidden" asp-for="ProjectId" />
+    <button type="submit">Delete</button>
+</form>

@@ -1,0 +1,19 @@
+﻿@model List<User>
+
+<h2>Assigned Students</h2>
+
+<table class="table">
+    @foreach (var s in Model)
+    {
+        <tr>
+            <td>@s.FullName</td>
+            <td>
+                <a asp-action="StudentProjects"
+                   asp-route-studentId="@s.UserId"
+                   class="btn btn-info">
+                    View Tasks
+                </a>
+            </td>
+        </tr>
+    }
+</table>
