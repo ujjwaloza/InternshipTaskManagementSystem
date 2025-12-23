@@ -12,41 +12,63 @@
 
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">InternshipTaskManagementSystem</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
+    @* <nav class="navbar navbar-expand-lg
+    @(Context.Session.GetString("UserRole") == "Admin" ? "bg-danger" :
+               Context.Session.GetString("UserRole") == "Mentor" ? "bg-primary" :
+               "bg-success")
+    navbar-dark"> *@
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand fw-bold" href="/">InternshipTaskManagement</a> 
+            
+
+            <div class="collapse navbar-collapse">
+                <ul class="navbar-nav ms-auto">
+
+                    @if (Context.Session.GetString("UserRole") == "Admin")
+                    {
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            <a class="nav-link" href="/Admin/Dashboard">
+                                 Home
+                            </a>
                         </li>
+                    }
+
+                    @if (Context.Session.GetString("UserRole") == "Mentor")
+                    {
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                            <a class="nav-link" href="/Mentor/Dashboard">
+                                Home
+                            </a>
                         </li>
-                    </ul>
-                </div>
+                    }
+
+                    @if (Context.Session.GetString("UserRole") == "Student")
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link" href="/Student/Dashboard">
+                                  Home
+                            </a>
+                        </li>
+                    }
+
+                    @* <li class="nav-item">
+                        <a class="nav-link text-danger" href="/Account/Logout">
+                            Logout
+                        </a>
+                    </li> *@
+
+                </ul>
             </div>
-        </nav>
-    </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        @RenderBody()
     </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2025 - InternshipTaskManagementSystem - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </div>
-    </footer>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
-    @await RenderSectionAsync("Scripts", required: false)
+    @RenderSection("Scripts", required: false)
 </body>
+
 </html>

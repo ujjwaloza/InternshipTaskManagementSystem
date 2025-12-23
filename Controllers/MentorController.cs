@@ -13,7 +13,6 @@ namespace InternshipTaskManagementSystem.Controllers
             _connectionString = configuration.GetConnectionString("DefaultConnection");
         }
 
-        // ================= DASHBOARD =================
         public IActionResult Dashboard()
         {
             if (HttpContext.Session.GetString("UserRole") != "Mentor")
@@ -22,7 +21,6 @@ namespace InternshipTaskManagementSystem.Controllers
             return View();
         }
 
-        // ================= VIEW ASSIGNED STUDENTS =================
         public IActionResult AssignedStudents()
         {
             int mentorId = Convert.ToInt32(HttpContext.Session.GetString("UserId"));
@@ -55,7 +53,6 @@ namespace InternshipTaskManagementSystem.Controllers
             return View(students);
         }
 
-        // ================= STUDENT PROJECTS =================
         public IActionResult StudentProjects(int studentId)
         {
             List<Project> projects = new();
@@ -82,7 +79,6 @@ namespace InternshipTaskManagementSystem.Controllers
             return View(projects);
         }
 
-        // ================= STUDENT TASKS =================
         public IActionResult StudentTasks(int studentId)
         {
             List<TaskModel> tasks = new();
@@ -115,14 +111,12 @@ namespace InternshipTaskManagementSystem.Controllers
             return View(tasks);
         }
 
-        // ================= ASSIGN TASK (GET) =================
         public IActionResult AssignTask(int projectId)
         {
             ViewBag.ProjectId = projectId;
             return View(new TaskModel { ProjectId = projectId });
         }
 
-        // ================= ASSIGN TASK (POST) =================
         [HttpPost]
         public IActionResult AssignTask(TaskModel task)
         {
@@ -161,7 +155,6 @@ namespace InternshipTaskManagementSystem.Controllers
             return RedirectToAction("Dashboard");
         }
 
-        // ================= WEEKLY REPORTS =================
         public IActionResult WeeklyReports()
         {
             int mentorId = Convert.ToInt32(HttpContext.Session.GetString("UserId"));

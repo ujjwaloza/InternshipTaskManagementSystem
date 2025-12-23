@@ -222,16 +222,28 @@ namespace InternshipTaskManagementSystem.Controllers
         [HttpPost, ActionName("DeleteProject")]
         public IActionResult DeleteProjectConfirmed(int id)
         {
-            if (!IsAdmin()) return RedirectToAction("Login", "Account");
+            if (!IsAdmin())
+                return RedirectToAction("Login", "Account");
 
-            var project = _context.Projects.Find(id);
-            if (project == null) return RedirectToAction("Projects");
+            var project = _context.Projects
+                .Include(p => p.Tasks)
+                .FirstOrDefault(p => p.ProjectId == id);
+
+            if (project == null)
+                return RedirectToAction("Projects");
+
+            
+            if (project.Tasks != null && project.Tasks.Any())
+            {
+                _context.Tasks.RemoveRange(project.Tasks);
+            }
 
             _context.Projects.Remove(project);
             _context.SaveChanges();
 
             return RedirectToAction("Projects");
         }
+
 
         public IActionResult WeeklyReports()
         {

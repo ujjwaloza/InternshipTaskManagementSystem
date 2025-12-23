@@ -2,7 +2,6 @@
 
 <div class="container mt-5">
 
-    <!-- Page Header -->
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h3 class="fw-bold">My Tasks</h3>
         <span class="badge bg-primary fs-6">
@@ -10,7 +9,6 @@
         </span>
     </div>
 
-    <!-- Task Table Card -->
     <div class="card shadow-lg border-0">
         <div class="card-header bg-dark text-white">
             <h5 class="mb-0">Assigned Tasks</h5>
@@ -31,14 +29,12 @@
                     {
                         <tr>
                             <td class="fw-semibold">@task.Title</td>
-
-                            <!-- STATUS BADGE -->
                             <td>
-                                @if (task.Status == "Done")
+                                @if (task.Status == "Completed")
                                 {
-                                    <span class="badge bg-success px-3 py-2">Done</span>
+                                    <span class="badge bg-success px-3 py-2">Completed</span>
                                 }
-                                else if (task.Status == "InProgress")
+                                else if (task.Status == "In Progress")
                                 {
                                     <span class="badge bg-warning text-dark px-3 py-2">In Progress</span>
                                 }
@@ -48,29 +44,38 @@
                                 }
                             </td>
 
-                            <!-- ACTION BUTTON -->
                             <td class="text-center">
-                                @if (task.Status == "ToDo")
+                                @switch (task.Status)
                                 {
-                                    <a asp-action="StartTask"
-                                       asp-route-id="@task.TaskId"
-                                       class="btn btn-sm btn-outline-primary">
-                                        ▶ Start
-                                    </a>
-                                }
-                                else if (task.Status == "InProgress")
-                                {
-                                    <a asp-action="CompleteTask"
-                                       asp-route-id="@task.TaskId"
-                                       class="btn btn-sm btn-outline-success">
-                                        ✔ Complete
-                                    </a>
-                                }
-                                else
-                                {
-                                    <span class="text-muted">Completed</span>
+                                    case "To Do":
+                                        <a asp-controller="Student"
+                                           asp-action="StartTask"
+                                           asp-route-id="@task.TaskId"
+                                           class="btn btn-primary btn-sm">
+                                            ▶ Start
+                                        </a>
+                                        break;
+
+                                    case "In Progress":
+                                        <a asp-controller="Student"
+                                           asp-action="CompleteTask"
+                                           asp-route-id="@task.TaskId"
+                                           class="btn btn-success btn-sm">
+                                            ✔ Complete
+                                        </a>
+                                        break;
+
+                                    case "Completed":
+                                        <span class="badge bg-success px-3 py-2">Completed</span>
+                                        break;
+
+                                    default:
+                                        <span class="badge bg-danger">Unknown</span>
+                                        break;
                                 }
                             </td>
+
+
                         </tr>
                     }
                 </tbody>

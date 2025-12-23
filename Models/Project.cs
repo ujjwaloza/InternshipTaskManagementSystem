@@ -15,6 +15,6 @@ namespace InternshipTaskManagementSystem.Models
         public DateTime? EndDate { get; set; }
         public User? Student { get; set; }
         public User? Mentor { get; set; }
-       // public ICollection<TaskModel> Tasks { get; set; }
+       public ICollection<TaskModel> Tasks { get; set; }
     }
 }

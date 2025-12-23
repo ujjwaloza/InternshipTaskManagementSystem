@@ -14,7 +14,6 @@ namespace InternshipTaskManagementSystem.Controllers
             _connectionString = configuration.GetConnectionString("DefaultConnection");
         }
 
-        // ================= DASHBOARD =================
         public IActionResult Dashboard()
         {
             if (HttpContext.Session.GetString("UserRole") != "Student")
@@ -22,8 +21,41 @@ namespace InternshipTaskManagementSystem.Controllers
 
             return View();
         }
+        public IActionResult StartTask(int id)
+        {
+            if (HttpContext.Session.GetString("UserRole") != "Student")
+                return RedirectToAction("Login", "Account");
 
-        // ================= VIEW TASKS =================
+            using (SqlConnection con = new SqlConnection(_connectionString))
+            {
+                string query = "UPDATE Tasks SET Status='In Progress' WHERE TaskId=@TaskId";
+                SqlCommand cmd = new SqlCommand(query, con);
+                cmd.Parameters.AddWithValue("@TaskId", id);
+
+                con.Open();
+                cmd.ExecuteNonQuery();
+            }
+
+            return RedirectToAction("ViewTasks");
+        }
+        public IActionResult CompleteTask(int id)
+        {
+            if (HttpContext.Session.GetString("UserRole") != "Student")
+                return RedirectToAction("Login", "Account");
+
+            using (SqlConnection con = new SqlConnection(_connectionString))
+            {
+                string query = "UPDATE Tasks SET Status='Completed' WHERE TaskId=@TaskId";
+                SqlCommand cmd = new SqlCommand(query, con);
+                cmd.Parameters.AddWithValue("@TaskId", id);
+
+                con.Open();
+                cmd.ExecuteNonQuery();
+            }
+
+            return RedirectToAction("ViewTasks");
+        }
+
         public IActionResult ViewTasks()
         {
             if (HttpContext.Session.GetString("UserRole") != "Student")
@@ -62,7 +94,6 @@ namespace InternshipTaskManagementSystem.Controllers
             return View(tasks);
         }
 
-        // ================= UPDATE TASK STATUS =================
         public IActionResult UpdateTaskStatus(int taskId, string status)
         {
             if (HttpContext.Session.GetString("UserRole") != "Student")
@@ -81,7 +112,6 @@ namespace InternshipTaskManagementSystem.Controllers
             return RedirectToAction("ViewTasks");
         }
 
-        // ================= SUBMIT WEEKLY REPORT (GET) =================
         public IActionResult SubmitReport()
         {
             if (HttpContext.Session.GetString("UserRole") != "Student")
@@ -90,7 +120,6 @@ namespace InternshipTaskManagementSystem.Controllers
             return View();
         }
 
-        // ================= SUBMIT WEEKLY REPORT (POST) =================
         [HttpPost]
         public IActionResult SubmitReport(int WeekNumber, string Content)
         {
@@ -117,7 +146,6 @@ namespace InternshipTaskManagementSystem.Controllers
             return RedirectToAction("Dashboard");
         }
 
-        // ================= VIEW MY REPORTS =================
         public IActionResult MyReports()
         {
             if (HttpContext.Session.GetString("UserRole") != "Student")
