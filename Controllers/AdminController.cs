@@ -167,7 +167,7 @@ namespace InternshipTaskManagementSystem.Controllers
             _context.Projects.Add(project);
             _context.SaveChanges();
 
-            Console.WriteLine("🔥 PROJECT SAVED SUCCESSFULLY");
+            Console.WriteLine("PROJECT SAVED SUCCESSFULLY");
 
             return RedirectToAction("Projects");
         }
