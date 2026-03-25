@@ -1,6 +1,7 @@
 ﻿using InternshipTaskManagementSystem.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore;
 using System.Data;
 
 namespace InternshipTaskManagementSystem.Controllers
@@ -56,6 +57,7 @@ namespace InternshipTaskManagementSystem.Controllers
             return RedirectToAction("ViewTasks");
         }
 
+
         public IActionResult ViewTasks()
         {
             if (HttpContext.Session.GetString("UserRole") != "Student")
@@ -67,13 +69,12 @@ namespace InternshipTaskManagementSystem.Controllers
             using (SqlConnection con = new SqlConnection(_connectionString))
             {
                 string query = @"
-                    SELECT t.*
-                    FROM Tasks t
-                    JOIN Projects p ON t.ProjectId = p.ProjectId
-                    WHERE p.StudentId = @StudentId";
+            SELECT TaskId, Title, Description, Status, ProjectId
+            FROM Tasks
+            WHERE UserId = @UserId";
 
                 SqlCommand cmd = new SqlCommand(query, con);
-                cmd.Parameters.AddWithValue("@StudentId", studentId);
+                cmd.Parameters.AddWithValue("@UserId", studentId);
 
                 con.Open();
                 SqlDataReader reader = cmd.ExecuteReader();
@@ -94,23 +95,35 @@ namespace InternshipTaskManagementSystem.Controllers
             return View(tasks);
         }
 
+
+
+        [HttpPost]
         public IActionResult UpdateTaskStatus(int taskId, string status)
         {
             if (HttpContext.Session.GetString("UserRole") != "Student")
                 return RedirectToAction("Login", "Account");
 
-            using SqlConnection con = new SqlConnection(_connectionString);
-            string query = "UPDATE Tasks SET Status=@Status WHERE TaskId=@TaskId";
+            int studentId = Convert.ToInt32(HttpContext.Session.GetString("UserId"));
 
-            SqlCommand cmd = new SqlCommand(query, con);
-            cmd.Parameters.AddWithValue("@Status", status);
-            cmd.Parameters.AddWithValue("@TaskId", taskId);
+            using (SqlConnection con = new SqlConnection(_connectionString))
+            {
+                string query = @"
+            UPDATE Tasks
+            SET Status = @Status
+            WHERE TaskId = @TaskId AND UserId = @UserId";
 
-            con.Open();
-            cmd.ExecuteNonQuery();
+                SqlCommand cmd = new SqlCommand(query, con);
+                cmd.Parameters.AddWithValue("@Status", status);
+                cmd.Parameters.AddWithValue("@TaskId", taskId);
+                cmd.Parameters.AddWithValue("@UserId", studentId);
+
+                con.Open();
+                cmd.ExecuteNonQuery();
+            }
 
             return RedirectToAction("ViewTasks");
         }
+
 
         public IActionResult SubmitReport()
         {

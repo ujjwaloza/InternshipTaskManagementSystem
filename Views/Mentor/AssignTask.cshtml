@@ -1,15 +1,23 @@
 ﻿@model InternshipTaskManagementSystem.Models.TaskModel
 
-<h2>Assign Task</h2>
+<h2 class="text-lg-center mt-4">Assign Task</h2>
 
-<form method="post">
-    <input type="hidden" asp-for="ProjectId" value="@ViewBag.ProjectId" />
+<form method="post" class="Assigntask  border-black col-md-4 card container-md p-1">
+    <div class="form-group card-body me-5"> 
+        <input type="hidden" asp-for="ProjectId" value="@ViewBag.ProjectId" />
 
-    <label>Title</label>
-    <input asp-for="Title" required />
+        <label>Title</label><br />
+        <input asp-for="Title" class="form-title" required /><br /><br />
 
-    <label>Description</label>
-    <textarea asp-for="Description"></textarea>
+        <label>Description</label><br />
 
-    <button type="submit">Assign</button>
+        <textarea asp-for="Description" class="form-title"></textarea><br />
+
+
+        <button type="submit">Assign</button><br />
+    </div>
+    
 </form>
+@section style{
+    <link rel="stylesheet" href="~/css/assigntask.css"/>
+}

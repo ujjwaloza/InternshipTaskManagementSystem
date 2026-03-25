@@ -2,16 +2,26 @@
 
 <h2>Create User</h2>
 
-<form method="post">
-    <input asp-for="FullName" placeholder="Full Name" /><br /><br />
-    <input asp-for="Email" placeholder="Email" /><br /><br />
-    <input asp-for="Password" placeholder="Password" /><br /><br />
+<form autocomplete="off" method="post">
+    <input asp-for="FullName" placeholder="Full Name" required /><br /><br />
+    <input asp-for="Email" placeholder="Email" required /><br /><br />
+    <input asp-for="Password" placeholder="Password" required /><br /><br />
 
-    <select asp-for="Role">
+    <select asp-for="Role" class="role">
         <option>Admin</option>
         <option>Student</option>
         <option>Mentor</option>
     </select><br /><br />
 
     <button type="submit">Save</button>
+    
+     
+    
+    
+
 </form>
+
+
+@section style{
+	<link rel="stylesheet" href="~/css/createuser.css" />
+}

@@ -16,7 +16,7 @@ namespace InternshipTaskManagementSystem.Models
 
         [Required]
         public string Role { get; set; } // Admin, Student, Mentor
-
+        public bool IsFirstLogin { get; set; } = true;
         public DateTime CreatedAt { get; set; }=DateTime.Now;
     }
 }

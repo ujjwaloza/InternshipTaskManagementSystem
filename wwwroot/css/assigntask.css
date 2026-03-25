@@ -1,0 +1,25 @@
+﻿body {
+    background-color: #f0f0f0;
+    font-family: Arial, sans-serif;
+}
+
+form {
+    margin: auto;
+    border: 1px solid black;
+    width: 300px;
+    padding: 15px;
+    margin-top: 20px;
+}
+input {
+    width: 260px;
+    border-radius: 5px;
+    background-color: aliceblue;
+    border: 1px solid black;
+    padding: 5px;
+}
+
+h2 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

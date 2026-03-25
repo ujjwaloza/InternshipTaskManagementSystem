@@ -1,0 +1,66 @@
+﻿@model IEnumerable<dynamic>
+
+<div class="container mt-4">
+
+    <h3 class="fw-bold mb-4">📊 Student Progress</h3>
+
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover">
+
+            <thead class="table-dark">
+                <tr>
+                    <th>Student</th>
+                    <th>Project</th>
+                    <th>Task</th>
+                    <th>Status</th>
+                    <th>Created</th>
+                    <th>Due</th>
+                    <th>Weekly Report</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.StudentName</td>
+                        <td>@item.ProjectTitle</td>
+                        <td>@item.TaskTitle</td>
+
+                        <td>
+                            <span class="badge
+                                    @(item.Status == "Completed" ? "bg-success" :
+                                                                    item.Status == "In Progress" ? "bg-warning" : "bg-secondary")">
+                            @item.Status
+                        </span>
+                    </td>
+
+                        <td>@Convert.ToDateTime(item.CreatedAt).ToString("dd MMM yyyy")</td>
+
+                        <td>
+                            @(item.DueDate != null ? Convert.ToDateTime(item.DueDate).ToString("dd MMM yyyy") : "N/A")
+                        </td>
+
+                        <td>
+                            <a href="/Mentor/WeeklyReports?studentId=@item.StudentId"
+                               class="btn btn-sm btn-info">
+                                View Report
+                            </a>
+                        </td>
+
+                        <td>
+                            <a href="/Mentor/Reply?studentId=@item.StudentId"
+                               class="btn btn-sm btn-primary">
+                                Reply
+                            </a>
+                        </td>
+
+                    </tr>
+                                }
+            </tbody>
+
+        </table>
+    </div>
+
+</div>

@@ -1,0 +1,42 @@
+﻿@model List<InternshipTaskManagementSystem.Models.TaskModel>
+
+<div class="container mt-4">
+
+    <h3 class="fw-bold mb-4">📋 Student Tasks</h3>
+
+    <a href="/Mentor/AssignTask?projectId=@ViewBag.ProjectId"
+       class="btn btn-success mb-3">
+        ➕ Assign New Task
+    </a>
+
+    <table class="table table-bordered table-hover">
+
+        <thead class="table-dark">
+            <tr>
+                <th>Title</th>
+                <th>Description</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var task in Model)
+            {
+                <tr>
+                    <td>@task.Title</td>
+                    <td>@task.Description</td>
+
+                    <td>
+                        <span class="badge
+                                @(task.Status == "Completed" ? "bg-success" :
+                                                            task.Status == "In Progress" ? "bg-warning" : "bg-secondary")">
+                        @task.Status
+                    </span>
+                </td>
+            </tr>
+                        }
+        </tbody>
+
+    </table>
+
+</div>

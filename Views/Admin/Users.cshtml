@@ -10,102 +10,128 @@
     </div>
 }
 
-
 <div class="container mt-4">
 
-   
+    
     <div class="d-flex justify-content-between align-items-center mb-3">
         <h3 class="fw-bold">👥 User Management</h3>
 
-        <a asp-action="CreateUser" class="btn btn-success">
-            <i class="bi bi-person-plus"></i> Create User
-        </a>
-    </div>
+        <div class="d-flex gap-1 mb-1">
+            <a asp-action="CreateUser" class="btn btn-success">
+                Add
+            </a>
 
-  
-    <div class="mb-3">
-        <input type="text"
-               id="searchInput"
-               class="form-control"
-               placeholder="🔍 Search by name, email or role..." />
-    </div>
+            <button id="editBtn" class="btn btn-warning" disabled>
+                Edit
+            </button>
 
-    <div class="card shadow-sm">
-        <div class="card-body p-0">
-            <table class="table table-hover mb-0" id="usersTable">
-                <thead class="table-dark">
-                    <tr>
-                        <th>#</th>
-                        <th>Full Name</th>
-                        <th>Email</th>
-                        <th>Role</th>
-                        <th>Created</th>
-                        <th class="text-center">Actions</th>
-                    </tr>
-                </thead>
-
-                <tbody>
-                    @foreach (var user in Model)
-                    {
-                        <tr>
-                            <td>@user.UserId</td>
-
-                            <td class="fw-semibold">
-                                @user.FullName
-                            </td>
-
-                            <td>@user.Email</td>
-
-                            <td>
-                                @if (user.Role == "Admin")
-                                {
-                                    <span class="badge bg-danger">Admin</span>
-                                }
-                                else if (user.Role == "Mentor")
-                                {
-                                    <span class="badge bg-primary">Mentor</span>
-                                }
-                                else
-                                {
-                                    <span class="badge bg-success">Student</span>
-                                }
-                            </td>
-
-                            <td>
-                                @user.CreatedAt.ToString("dd MMM yyyy")
-                            </td>
-
-                            <td class="text-center">
-                                <a asp-action="EditUser"
-                                   asp-route-id="@user.UserId"
-                                   class="btn btn-sm btn-warning me-1">
-                                    Edit
-                                </a>
-
-                                <a asp-action="DeleteUser"
-                                   asp-route-id="@user.UserId"
-                                   class="btn btn-sm btn-danger">
-                                    Delete
-                                </a>
-                            </td>
-                        </tr>
-                    }
-                </tbody>
-
-            </table>
+            <button id="deleteBtn" class="btn btn-danger" disabled>
+                Delete
+            </button>
         </div>
     </div>
 
+    <input type="text" id="searchInput" class="form-group mb-3 ms-auto"
+           placeholder="🔍 Search by name, email or role..." />
+
+    <div class="card shadow-sm">
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-hover mb-0 align-middle table-bordered"  id="usersTable">
+
+                    <thead class="table-dark">
+                        <tr>
+                  
+                            <th>
+                                <input type="checkbox" id="selectAll" />
+                            </th>
+                            <th class="id">Id</th>
+                            <th class="name">Name</th>
+                            <th class="email">Email</th>
+                            <th class="role">Role</th>
+                            <th class="createdat">Created</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        @foreach (var user in Model)
+                        {
+                            <tr>
+                                
+                                <td>
+                                    <input type="checkbox"
+                                           class="user-checkbox"
+                                           data-id="@user.UserId"
+                                           data-role="@user.Role" />
+                                </td>
+
+                                <td>@user.UserId</td>
+                                <td>@user.FullName</td>
+                                <td>@user.Email</td>
+
+                                <td>
+                                    @if (user.Role == "Admin")
+                                    {
+                                        <span class="badge bg-danger">Admin</span>
+                                    }
+                                    else if (user.Role == "Mentor")
+                                    {
+                                        <span class="badge bg-primary">Mentor</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge bg-success">Student</span>
+                                    }
+                                </td>
+
+                                <td>@user.CreatedAt.ToString("dd MMM yyyy")</td>
+                            </tr>
+                        }
+                    </tbody>
+
+                </table>
+                <div class="d-flex justify-content-between align-items-center mt-3">
+
+                    <!-- Showing info -->
+                    <div>
+                        Showing @Model.Count() users
+                    </div>
+
+                    <!-- Pagination -->
+                    <nav>
+                        <ul class="pagination mb-0">
+
+                            <!-- Previous -->
+                            <li class="page-item @(ViewBag.CurrentPage == 1 ? "disabled" : "")">
+                                <a class="page-link"
+                                   href="?page=@(ViewBag.CurrentPage - 1)">
+                                    ‹
+                                </a>
+                            </li>
+
+                            <!-- Page Numbers -->
+                            @for (int i = 1; i <= ViewBag.TotalPages; i++)
+                            {
+                                <li class="page-item @(i == ViewBag.CurrentPage ? "active" : "")">
+                                    <a class="page-link" href="?page=@i">@i</a>
+                                </li>
+                            }
+
+                            <!-- Next -->
+                            <li class="page-item @(ViewBag.CurrentPage == ViewBag.TotalPages ? "disabled" : "")">
+                                <a class="page-link"
+                                   href="?page=@(ViewBag.CurrentPage + 1)">
+                                    ›
+                                </a>
+                            </li>
+
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+
 </div>
-
-<script>
-    document.getElementById("searchInput").addEventListener("keyup", function () {
-        let filter = this.value.toLowerCase();
-        let rows = document.querySelectorAll("#usersTable tbody tr");
-
-        rows.forEach(row => {
-            let text = row.innerText.toLowerCase();
-            row.style.display = text.includes(filter) ? "" : "none";
-        });
-    });
-</script>
+<script src="~/js/user.js"></script>

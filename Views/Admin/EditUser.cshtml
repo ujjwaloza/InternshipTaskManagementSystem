@@ -9,11 +9,16 @@
     <input asp-for="Email" /><br /><br />
     <input asp-for="Password" /><br /><br />
 
-    <select asp-for="Role">
+    <select asp-for="Role" class="role">
         <option>Admin</option>
         <option>Student</option>
         <option>Mentor</option>
     </select><br /><br />
 
     <button type="submit">Update</button>
+    <button type="submit">Cancel</button>
 </form>
+
+@section style{
+	<link rel="stylesheet" href="~/css/edituser.css" asp-append-version="true" />
+}

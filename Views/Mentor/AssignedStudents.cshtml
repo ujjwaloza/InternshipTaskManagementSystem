@@ -1,19 +1,48 @@
-﻿@model List<User>
+﻿@model List<InternshipTaskManagementSystem.Models.Project>
 
-<h2>Assigned Students</h2>
+<h2 class="mb-4 text-center">Assigned Students</h2>
 
-<table class="table">
-    @foreach (var s in Model)
-    {
-        <tr>
-            <td>@s.FullName</td>
-            <td>
-                <a asp-action="StudentProjects"
-                   asp-route-studentId="@s.UserId"
-                   class="btn btn-info">
-                    View Tasks
-                </a>
-            </td>
-        </tr>
-    }
-</table>
+<div class="container">
+    <div class="row g-4 justify-content-center">
+
+        @foreach (var item in Model)
+        {
+            <div class="col-12 col-md-6 col-lg-5">
+
+                <div class="card p-3 shadow-sm h-100">
+
+                    <h5 class="fw-bold">@item.Student.FullName</h5>
+
+                    <p class="mb-1">
+                        <strong>Email:</strong> @item.Student.Email
+                    </p>
+
+                    <p class="mb-1">
+                        <strong>Project:</strong> @item.Title
+                    </p>
+
+                    <p class="mb-2">
+                        <strong>Description:</strong> @item.Description
+                    </p>
+
+                    <div class="d-flex gap-2 mt-3">
+
+                        <a href="/Mentor/StudentTasks?projectId=@item.ProjectId"
+                           class="btn btn-primary w-50">
+                            View Tasks
+                        </a>
+
+                        <a href="/Mentor/AssignTask?projectId=@item.ProjectId"
+                           class="btn btn-success w-50">
+                            Assign Task
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+        }
+
+    </div>
+</div>
