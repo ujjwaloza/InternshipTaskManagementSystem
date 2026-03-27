@@ -37,17 +37,7 @@ body {
     border:2px solid black;
 }
 
-.mentordashboard-card {
-    display:flow;
-    margin: auto;
-    width: 100%;
-    margin-left:20px;
-/*  
-    align-content: center;
-    justify-content:center;
-    align-items:center;*/
-    
-}
+
 
 .dashboard-card:hover {
     transform: translateY(-5px);
