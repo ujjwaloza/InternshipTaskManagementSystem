@@ -71,29 +71,35 @@ namespace InternshipTaskManagementSystem.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Description")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("MentorId")
+                    b.Property<int?>("MentorId")
                         .HasColumnType("int");
 
                     b.Property<int>("ProjectId")
                         .HasColumnType("int");
 
                     b.Property<string>("Status")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("StudentId")
+                    b.Property<int?>("StudentId")
                         .HasColumnType("int");
 
                     b.Property<string>("Title")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("UserId")
+                        .HasColumnType("int");
 
                     b.HasKey("TaskId");
 
+                    b.HasIndex("MentorId");
+
                     b.HasIndex("ProjectId");
+
+                    b.HasIndex("StudentId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Tasks");
                 });
@@ -142,16 +148,15 @@ namespace InternshipTaskManagementSystem.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ReportId"));
 
                     b.Property<string>("Content")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("MentorId")
+                    b.Property<int?>("MentorId")
                         .HasColumnType("int");
 
                     b.Property<int>("ProjectId")
                         .HasColumnType("int");
 
-                    b.Property<int>("StudentId")
+                    b.Property<int?>("StudentId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("SubmittedOn")
@@ -172,13 +177,14 @@ namespace InternshipTaskManagementSystem.Migrations
             modelBuilder.Entity("InternshipTaskManagementSystem.Models.Project", b =>
                 {
                     b.HasOne("InternshipTaskManagementSystem.Models.User", "Mentor")
-                        .WithMany()
-                        .HasForeignKey("MentorId");
+                        .WithMany("MentorProjects")
+                        .HasForeignKey("MentorId")
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("InternshipTaskManagementSystem.Models.User", "Student")
-                        .WithMany()
+                        .WithMany("StudentProjects")
                         .HasForeignKey("StudentId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Mentor");
@@ -188,11 +194,25 @@ namespace InternshipTaskManagementSystem.Migrations
 
             modelBuilder.Entity("InternshipTaskManagementSystem.Models.TaskModel", b =>
                 {
+                    b.HasOne("InternshipTaskManagementSystem.Models.User", null)
+                        .WithMany()
+                        .HasForeignKey("MentorId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
                     b.HasOne("InternshipTaskManagementSystem.Models.Project", "project")
                         .WithMany("Tasks")
                         .HasForeignKey("ProjectId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("InternshipTaskManagementSystem.Models.User", null)
+                        .WithMany()
+                        .HasForeignKey("StudentId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("InternshipTaskManagementSystem.Models.User", null)
+                        .WithMany("Tasks")
+                        .HasForeignKey("UserId");
 
                     b.Navigation("project");
                 });
@@ -200,16 +220,15 @@ namespace InternshipTaskManagementSystem.Migrations
             modelBuilder.Entity("InternshipTaskManagementSystem.Models.WeeklyReport", b =>
                 {
                     b.HasOne("InternshipTaskManagementSystem.Models.Project", "Project")
-                        .WithMany()
+                        .WithMany("WeeklyReports")
                         .HasForeignKey("ProjectId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("InternshipTaskManagementSystem.Models.User", "Student")
-                        .WithMany()
+                        .WithMany("WeeklyReports")
                         .HasForeignKey("StudentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.Navigation("Project");
 
@@ -219,6 +238,19 @@ namespace InternshipTaskManagementSystem.Migrations
             modelBuilder.Entity("InternshipTaskManagementSystem.Models.Project", b =>
                 {
                     b.Navigation("Tasks");
+
+                    b.Navigation("WeeklyReports");
+                });
+
+            modelBuilder.Entity("InternshipTaskManagementSystem.Models.User", b =>
+                {
+                    b.Navigation("MentorProjects");
+
+                    b.Navigation("StudentProjects");
+
+                    b.Navigation("Tasks");
+
+                    b.Navigation("WeeklyReports");
                 });
 #pragma warning restore 612, 618
         }

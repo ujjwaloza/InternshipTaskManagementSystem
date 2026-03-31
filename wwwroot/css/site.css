@@ -18,8 +18,8 @@ html {
 }
 
 body {
-  margin-bottom: 60px;
-  background-color:#efe1e1;
+    margin-bottom: 60px;
+    background-color: #F8FAFC;
 }
 
 .form-floating > .form-control-plaintext::placeholder, .form-floating > .form-control::placeholder {
@@ -32,16 +32,24 @@ body {
 }
 .dashboard-card {
     transition: transform 0.3s;
-    background-color: #afd4df;
+    background-color: #FFFFFF;
     border-radius: 10px;
-    border:2px solid black;
+    border: 2px solid #E2E8F0;
+    box-shadow: rgba(0,0,0,0.05);
+    padding: 20px;
 }
 
 
 
-.dashboard-card:hover {
+/*.dashboard-card:hover {
     transform: translateY(-5px);
-}
+}*/
+
+
+    .dashboard-card:hover {
+        transform: translateY(-5px);
+        transition: 0.3s ease;
+    }
 
 .text-purple {
     color: #6f42c1;
@@ -124,5 +132,16 @@ body {
     /* Buttons spacing */
     .btn {
         margin-top: 5px;
+    }
+}
+
+/*  MOBILE FIX */
+@media (max-width: 480px) {
+    .login-title {
+        font-size: 24px;
+    }
+
+    .login-container {
+        max-width: 100%;
     }
 }

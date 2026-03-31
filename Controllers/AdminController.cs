@@ -2,6 +2,7 @@
 using InternshipTaskManagementSystem.Models;
 using InternshipTaskManagementSystem.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 
@@ -237,9 +238,16 @@ namespace InternshipTaskManagementSystem.Controllers
         {
             if (!IsAdmin()) return RedirectToAction("Login", "Account");
 
-            ViewBag.Students = _context.Users.Where(u => u.Role == "Student").ToList();
-            ViewBag.Mentors = _context.Users.Where(u => u.Role == "Mentor").ToList();
-
+            ViewBag.Students = new SelectList(
+         _context.Users.Where(u => u.Role == "Student"),
+         "UserId",
+         "FullName"
+     );
+            ViewBag.Mentors = new SelectList(
+         _context.Users.Where(u => u.Role == "Mentor"),
+         "UserId",
+         "FullName"
+     );
             return View();
         }
 
@@ -438,28 +446,31 @@ namespace InternshipTaskManagementSystem.Controllers
             {
                 if (user.Role != "Admin")
                 {
-                    // 🔥 DELETE RELATED PROJECTS FIRST
-                    var projects = _context.Projects
-                        .Where(p => p.StudentId == user.UserId || p.MentorId == user.UserId)
+                    // 🔥 1. DELETE TASKS FIRST
+                    var tasks = _context.Tasks
+                        .Where(t => t.StudentId == user.UserId
+
+                                 || t.MentorId == user.UserId)
                         .ToList();
 
-                    _context.Projects.RemoveRange(projects);
+                    _context.Tasks.RemoveRange(tasks);
 
-                    // 🔥 DELETE REPORTS
+                    // 🔥 2. DELETE REPORTS
                     var reports = _context.WeeklyReports
                         .Where(r => r.StudentId == user.UserId)
                         .ToList();
 
                     _context.WeeklyReports.RemoveRange(reports);
 
-                    // 🔥 DELETE TASKS (if linked)
-                    var tasks = _context.Tasks
-                        .Where(t => t.StudentId == user.UserId)
+                    // 🔥 3. DELETE PROJECTS
+                    var projects = _context.Projects
+                        .Where(p => p.StudentId == user.UserId ||
+                                   (p.MentorId != null && p.MentorId == user.UserId))
                         .ToList();
 
-                    _context.Tasks.RemoveRange(tasks);
+                    _context.Projects.RemoveRange(projects);
 
-                    // 🔥 NOW DELETE USER
+                    // 🔥 4. DELETE USER
                     _context.Users.Remove(user);
                 }
             }

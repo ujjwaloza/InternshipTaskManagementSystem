@@ -45,26 +45,36 @@
                                 <label class="form-label fw-semibold">
                                     Assign Student
                                 </label>
-                                <select asp-for="StudentId" class="form-select">
+                                @* <select asp-for="StudentId"  class="form-select">
                                     <option value="">-- Select Student --</option>
                                     @foreach (var s in ViewBag.Students)
                                     {
                                         <option value="@s.UserId">@s.FullName</option>
                                     }
+                                </select> *@
+
+                                <select asp-for="StudentId" asp-items="ViewBag.Students" class="form-select">
+                                    <option value="">-- Select Student --</option>
                                 </select>
+                                <span asp-validation-for="StudentId" class="text-danger"></span>
                             </div>
 
                             <div class="col-md-6 mb-3">
                                 <label class="form-label fw-semibold">
                                     Assign Mentor
                                 </label>
-                                <select asp-for="MentorId" class="form-select">
+                                @* <select asp-for="MentorId" class="form-select">
                                     <option value="">-- Select Mentor --</option>
                                     @foreach (var m in ViewBag.Mentors)
                                     {
                                         <option value="@m.UserId">@m.FullName</option>
                                     }
+                                </select> *@
+
+                                <select asp-for="MentorId" asp-items="ViewBag.Mentors" class="form-select">
+                                    <option value="">-- Select Mentor --</option>
                                 </select>
+                                <span asp-validation-for="MentorId" class="text-danger"></span>
                             </div>
                         </div>
 

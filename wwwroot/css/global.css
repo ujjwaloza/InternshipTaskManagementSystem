@@ -1,0 +1,48 @@
+﻿/* =========================
+   COLOR SCALE (LIGHT THEME)
+========================= */
+:root {
+    /* PRIMARY SCALE */
+    --primary-50: #eef2ff;
+    --primary-100: #e0e7ff;
+    --primary-200: #c7d2fe;
+    --primary-300: #a5b4fc;
+    --primary-400: #818cf8;
+    --primary-500: #6366f1; /* MAIN */
+    --primary-600: #4f46e5;
+    --primary-700: #4338ca;
+    --primary-800: #3730a3;
+    --primary-900: #312e81;
+    /* NEUTRAL SCALE */
+    --gray-50: #f8fafc;
+    --gray-100: #f1f5f9;
+    --gray-200: #e2e8f0;
+    --gray-300: #cbd5f5;
+    --gray-400: #94a3b8;
+    --gray-500: #64748b;
+    --gray-600: #475569;
+    --gray-700: #334155;
+    --gray-800: #1e293b;
+    --gray-900: #0f172a;
+    /* SEMANTIC COLORS */
+    --success-500: #22c55e;
+    --warning-500: #f59e0b;
+    --danger-500: #ef4444;
+    /* BACKGROUND & TEXT */
+    --bg: var(--gray-50);
+    --surface: #ffffff;
+    --text: var(--gray-900);
+    --text-muted: var(--gray-500);
+    --border: var(--gray-200);
+    --radius: 12px;
+}
+
+[data-theme="dark"] {
+    --bg: var(--gray-900);
+    --surface: var(--gray-800);
+    --text: var(--gray-50);
+    --text-muted: var(--gray-400);
+    --border: var(--gray-700);
+    /* Slightly lighter primary for dark */
+    --primary-500: #818cf8;
+}

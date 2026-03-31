@@ -30,53 +30,48 @@
                         <tr>
                             <td class="fw-semibold">@task.Title</td>
                             <td>
-                                @if (task.Status == "ToDo")
-                                {
-                                    <span class="badge bg-secondary">To Do</span>
+                                @{
+                                    var status = (task.Status ?? "").Trim();
                                 }
-                                else if (task.Status == "InProgress")
+
+                                @if (status == "Pending")
                                 {
-                                    <span class="badge bg-warning">In Progress</span>
+                                    <span class="badge bg-secondary">Pending</span>
                                 }
-                                else if (task.Status == "Completed")
+                                else if (status == "In Progress")
+                                {
+                                    <span class="badge bg-warning text-dark">In Progress</span>
+                                }
+                                else if (status == "Completed")
                                 {
                                     <span class="badge bg-success">Completed</span>
                                 }
                                 else
                                 {
-                                    <span class="badge bg-danger">Unknown</span>
+                                    <span class="badge bg-danger">Unknown (@status)</span>
                                 }
-
                             </td>
 
                             <td class="text-center">
-                                @switch (task.Status)
+                                @if (status == "Pending")
                                 {
-                                    case "To Do":
-                                        <a asp-controller="Student"
-                                           asp-action="StartTask"
-                                           asp-route-id="@task.TaskId"
-                                           class="btn btn-primary btn-sm">
-                                            ▶ Start
-                                        </a>
-                                        break;
-
-                                    case "In Progress":
-                                        <a asp-controller="Student"
-                                           asp-action="CompleteTask"
-                                           asp-route-id="@task.TaskId"
-                                           class="btn btn-success btn-sm">
-                                            ✔ Complete
-                                        </a>
-                                        break;
-
-                                    case "Completed":
-                                        <span class="badge bg-success px-3 py-2">Completed</span>
-                                        break;
-
-                                    default:
-                                        <span class="badge bg-danger">Unknown</span>
-                                        break;
+                                    <a asp-action="StartTask"
+                                       asp-route-id="@task.TaskId"
+                                       class="btn btn-primary btn-sm">
+                                        Start
+                                    </a>
+                                }
+                                else if (status == "In Progress")
+                                {
+                                    <a asp-action="CompleteTask"
+                                       asp-route-id="@task.TaskId"
+                                       class="btn btn-success btn-sm">
+                                        ✔ Complete
+                                    </a>
+                                }
+                                else if (status == "Completed")
+                                {
+                                    <span class="badge bg-success px-3 py-2">Completed</span>
                                 }
                             </td>
 

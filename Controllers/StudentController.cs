@@ -71,7 +71,7 @@ namespace InternshipTaskManagementSystem.Controllers
                 string query = @"
             SELECT TaskId, Title, Description, Status, ProjectId
             FROM Tasks
-            WHERE UserId = @UserId";
+            WHERE StudentId = @UserId";
 
                 SqlCommand cmd = new SqlCommand(query, con);
                 cmd.Parameters.AddWithValue("@UserId", studentId);
@@ -110,7 +110,7 @@ namespace InternshipTaskManagementSystem.Controllers
                 string query = @"
             UPDATE Tasks
             SET Status = @Status
-            WHERE TaskId = @TaskId AND UserId = @UserId";
+           WHERE TaskId = @TaskId AND StudentId = @UserId";
 
                 SqlCommand cmd = new SqlCommand(query, con);
                 cmd.Parameters.AddWithValue("@Status", status);
