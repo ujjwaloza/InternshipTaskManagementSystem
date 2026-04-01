@@ -14,30 +14,39 @@
 
     
     <div class="d-flex justify-content-between align-items-center mb-3">
-        <h3 class="fw-bold"> User Management</h3>
+        <h3 class="fw-bold"> 
+            <i class="fa-solid fa-users"></i> User Management
+        </h3>
 
-        <div class="d-flex gap-1 mb-1">
-            <a asp-action="CreateUser" class="btn btn-success">
-                Add
-            </a>
-
-            <button id="editBtn" class="btn btn-warning" disabled>
-                Edit
-            </button>
-
-            <button id="deleteBtn" class="btn btn-danger" disabled>
-                Delete
-            </button>
-        </div>
+       
     </div>
 
-    <input type="text" id="searchInput" class="form-select-sm mb-3 "
-           placeholder="🔍 Search by name, email or role..." />
+    <div class="d-flex justify-content-end gap-1 mb-1">
+
+        <input type="text" id="searchInput" class="form-select-sm mb-1 gap-4"
+               placeholder="🔍 Search by name, email or role..." />
+        <a asp-action="CreateUser" class="btn btn-success">
+            Add
+        </a>
+
+        <button id="editBtn" class="btn btn-warning" disabled>
+            Edit
+        </button>
+
+        <button id="deleteBtn" class="btn btn-danger" disabled>
+            Delete
+        </button>
+    </div>
 
     <div class="card shadow-sm">
-        <div class="card-body p-0">
+        <div class="card-body p-1">
+           
             <div class="table-responsive">
-                <table class="table table-hover mb-0 align-middle table-bordered"  id="usersTable">
+                <table class="table table-hover align-middle table-bordered"  id="usersTable">
+
+                    
+
+                   
 
                     <thead class="table-dark">
                         <tr>
@@ -92,16 +101,13 @@
                 </table>
                 <div class="d-flex justify-content-between align-items-center mt-3">
 
-                    <!-- Showing info -->
                     <div>
                         Showing @Model.Count() users
                     </div>
 
-                    <!-- Pagination -->
-                    <nav>
-                        <ul class="pagination mb-0">
+                    <nav class="pagination ">
+                        <ul class="pagination mb-0 mt-1 ">
 
-                            <!-- Previous -->
                             <li class="page-item @(ViewBag.CurrentPage == 1 ? "disabled" : "")">
                                 <a class="page-link"
                                    href="?page=@(ViewBag.CurrentPage - 1)">
@@ -109,7 +115,6 @@
                                 </a>
                             </li>
 
-                            <!-- Page Numbers -->
                             @for (int i = 1; i <= ViewBag.TotalPages; i++)
                             {
                                 <li class="page-item @(i == ViewBag.CurrentPage ? "active" : "")">
@@ -117,7 +122,6 @@
                                 </li>
                             }
 
-                            <!-- Next -->
                             <li class="page-item @(ViewBag.CurrentPage == ViewBag.TotalPages ? "disabled" : "")">
                                 <a class="page-link"
                                    href="?page=@(ViewBag.CurrentPage + 1)">

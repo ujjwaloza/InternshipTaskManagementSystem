@@ -129,10 +129,10 @@
     </nav> *@
     @**@
 
-    <nav class="navbar navbar-dark bg-light-subtle px-3 border border-bottom rounded">
+    <nav class="navbar navbar-dark bg-light-subtle px-3 border border-bottom sticky-top ">
         <div class="container-fluid d-flex align-items-center">
 
-            <div class="d-flex align-items-center">
+            <div class="d-flex text-dark align-items-center">
                 
            <i class="fa-solid fa-chart-bar"></i>
                 <p class="navbar-brand text-dark fw-bold mb-0 ms-auto" href="">
@@ -151,16 +151,27 @@
                     {
                         <a class="nav-link text-dark fw-semibold ms-3 d-none d-lg-block"
                            href="/Admin/Dashboard">Home</a>
+
+                        <a class="nav-link text-dark fw-semibold ms-3 d-none d-lg-block"
+                           href="">Privacy</a>
+
+                       
                     }
                     else if (role == "Mentor")
                     {
                         <a class="nav-link text-dark fw-semibold ms-3 d-none d-lg-block"
                            href="/Mentor/Dashboard">Home</a>
+
+                        <a class="nav-link text-dark fw-semibold ms-3 d-none d-lg-block"
+                           href="">Privacy</a>
                     }
                     else if (role == "Student")
                     {
-                        <a class="nav-link ttext-dark fw-semibold ms-3 d-none d-lg-block"
+                        <a class="nav-link text-dark fw-semibold ms-3 d-none d-lg-block"
                            href="/Student/Dashboard">Home</a>
+
+                        <a class="nav-link text-dark fw-semibold ms-3 d-none d-lg-block"
+                           href="">Privacy</a>
                     }
                 }
 

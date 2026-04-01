@@ -10,14 +10,19 @@
 
         <div class="card-body">
             <form method="post">
+
+
+                @* <input type="hidden" name="ProjectId" value="@ViewBag.ProjectId" /> *@
+
                 <div class="mb-3">
                     <label class="form-label">Week Number</label>
+                  
                     <input type="number" name="WeekNumber" class="form-control" required />
                 </div>
 
                 <div class="mb-3">
                     <label class="form-label">Report Content</label>
-                    <textarea name="Content" class="form-control" rows="5" required></textarea>
+                    <textarea name="reportContent" class="form-control" rows="5" required></textarea>
                 </div>
 
                 <button type="submit" class="btn btn-success">

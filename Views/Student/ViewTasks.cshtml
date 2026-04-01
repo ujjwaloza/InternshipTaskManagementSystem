@@ -15,10 +15,11 @@
         </div>
 
         <div class="card-body p-0">
-            <table class="table table-hover align-middle mb-0">
+            <table class="table table-hover table-bordered align-middle mb-0">
                 <thead class="table-light">
                     <tr>
                         <th>Task Title</th>
+                        <th>Description</th>
                         <th>Status</th>
                         <th class="text-center">Action</th>
                     </tr>
@@ -28,7 +29,10 @@
                     @foreach (var task in Model)
                     {
                         <tr>
-                            <td class="fw-semibold">@task.Title</td>
+                            <td class="fw-semibold" style="word-break:break-all;">@task.Title</td>
+                            <td style="max-width:300px; word-break: break-all;">
+                                @task.Description
+                            </td>
                             <td>
                                 @{
                                     var status = (task.Status ?? "").Trim();
@@ -44,7 +48,9 @@
                                 }
                                 else if (status == "Completed")
                                 {
-                                    <span class="badge bg-success">Completed</span>
+                                    <span class="badge bg-success">
+                                        <i class="fa-solid fa-check-double"></i> Completed
+                                    </span>
                                 }
                                 else
                                 {
@@ -66,7 +72,8 @@
                                     <a asp-action="CompleteTask"
                                        asp-route-id="@task.TaskId"
                                        class="btn btn-success btn-sm">
-                                        ✔ Complete
+                                       
+                                         Complete
                                     </a>
                                 }
                                 else if (status == "Completed")

@@ -7,11 +7,12 @@ form {
     margin: auto;
     border: 1px solid black;
     width: 300px;
-   
+    padding: 15px;
     margin-top: 20px;
 }
-input ,textarea {
-    width: 300px;
+
+input , textarea, select{
+    width: 260px;
     border-radius: 5px;
     background-color: aliceblue;
     border: 1px solid black;
@@ -22,4 +23,12 @@ h2 {
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.role {
+    width: 260px;
+    border-radius: 5px;
+    background-color: aliceblue;
+    border: 1px solid black;
+    padding: 5px;
 }

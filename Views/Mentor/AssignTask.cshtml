@@ -13,11 +13,14 @@
 
         <textarea asp-for="Description" class="form-title"></textarea><br />
 
-
+        <div class="mb-3">
+            <label>Due Date</label>
+            <input asp-for="DueDate" type="date" class="form-control" />
+        </div>
         <button type="submit">Assign</button><br />
     </div>
     
 </form>
 @section style{
-    <link rel="stylesheet" href="~/css/assigntask.css"/>
+    <link rel="stylesheet" href="~/css/assigntask.css" asp-append-version="true"/>
 }

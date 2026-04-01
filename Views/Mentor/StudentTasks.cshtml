@@ -2,20 +2,27 @@
 
 <div class="container mt-4">
 
-    <h3 class="fw-bold mb-4">📋 Student Tasks</h3>
+    <h3 class="fw-bold mb-4">
+        <i class="fa-solid fa-list-check"></i> Student Tasks
+    </h3>
 
     <a href="/Mentor/AssignTask?projectId=@ViewBag.ProjectId"
        class="btn btn-success mb-3">
-        ➕ Assign New Task
+        Assign New Task
     </a>
 
-    <table class="table table-bordered table-hover">
+    
+
+</div>
+
+<div>
+    <table class="table table-bordered mx-auto table-hover w-75 ">
 
         <thead class="table-dark">
             <tr>
-                <th>Title</th>
-                <th>Description</th>
-                <th>Status</th>
+                <th class="title">Title</th>
+                <th class="description">Description</th>
+                <th class="status">Status</th>
             </tr>
         </thead>
 
@@ -23,13 +30,21 @@
             @foreach (var task in Model)
             {
                 <tr>
-                    <td>@task.Title</td>
-                    <td>@task.Description</td>
+                    <td style="word-break: break-all;">@task.Title</td>
+                    <td style="word-break: break-all;">@task.Description</td>
 
                     <td>
                         <span class="badge
-                                @(task.Status == "Completed" ? "bg-success" :
-                                                            task.Status == "In Progress" ? "bg-warning" : "bg-secondary")">
+                                    @(task.Status == "Completed" ? "bg-success" :
+                                                                               task.Status == "In Progress" ? "bg-warning" : "bg-secondary")">
+                        @if (task.Status == "Completed")
+                            {
+                                <i class="fa-solid fa-check-double"></i>
+                            }
+                        @if (task.Status == "In Progress")
+                            {
+                               <i class="fa-solid fa-spinner loader"></i> 
+                            }
                         @task.Status
                     </span>
                 </td>
@@ -38,5 +53,8 @@
         </tbody>
 
     </table>
-
 </div>
+
+@section style{
+    <link rel="stylesheet" href="~/css/studenttasks.css" asp-append-version="true"/>
+}

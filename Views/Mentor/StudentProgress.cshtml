@@ -2,7 +2,9 @@
 
 <div class="container mt-4">
 
-    <h3 class="fw-bold mb-4">📊 Student Progress</h3>
+    <h3 class="fw-bold mb-4">
+        <i class="fa-solid fa-spinner loader"></i> 
+        Student Progress</h3>
 
     <div class="table-responsive">
         <table class="table table-bordered table-hover">
@@ -24,14 +26,19 @@
                 @foreach (var item in Model)
                 {
                     <tr>
-                        <td>@item.StudentName</td>
-                        <td>@item.ProjectTitle</td>
-                        <td>@item.TaskTitle</td>
+                        <td style="word-break: break-all; width:15%">@item.StudentName</td>
+                        <td style="word-break: break-all; width:20%">@item.ProjectTitle</td>
+                        <td style="word-break: break-all; width:20%">@item.TaskTitle</td>
 
                         <td>
                             <span class="badge
                                     @(item.Status == "Completed" ? "bg-success" :
                                                                     item.Status == "In Progress" ? "bg-warning" : "bg-secondary")">
+                                @if(item.Status == "Completed")
+                                {
+                                    <i class="fa-solid fa-check-double"></i>
+								}
+	
                             @item.Status
                         </span>
                     </td>

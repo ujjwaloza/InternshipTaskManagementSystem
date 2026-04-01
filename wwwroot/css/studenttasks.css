@@ -1,0 +1,40 @@
+﻿.table {
+    width: 75%;
+    border-collapse: collapse;
+    border: 1px solid #d8cecee7;
+    border-radius: 20px;
+
+
+  
+}
+
+.table-bordered th,
+.table-bordered td {
+    border: 2px solid #d8cecee7;
+}
+
+.title {
+    width: 150px;
+}
+
+.description {
+    width: 400px;
+    word-break: break-all; 
+    white-space: normal;
+}
+
+.status {
+    width: 120px;
+}
+
+td {
+    word-wrap: break-word;
+}
+
+a {
+    margin-left:12%;
+}
+
+h3{
+    margin-left: 12%;
+}

@@ -117,21 +117,7 @@ namespace InternshipTaskManagementSystem.Controllers
             return View(user);
         }
 
-        //[HttpPost]
-        //public IActionResult EditUser(User user)
-        //{
-        //    if (!IsAdmin()) return RedirectToAction("Login", "Account");
-
-        //    if (!ModelState.IsValid)
-        //        return View(user);
-
-        //    _context.Entry(user).Property(u => u.CreatedAt).IsModified = false;
-
-        //    _context.Users.Update(user);
-        //    _context.SaveChanges();
-
-        //    return RedirectToAction("Users");
-        //}
+      
         private string GenerateRandomPassword()
         {
             return "ITMS@" + new Random().Next(1000, 9999);
@@ -150,27 +136,21 @@ namespace InternshipTaskManagementSystem.Controllers
             if (existingUser == null)
                 return NotFound();
 
-            // Keep old created date
             existingUser.CreatedAt = existingUser.CreatedAt;
 
-            // Update basic fields
             existingUser.FullName = user.FullName;
             existingUser.Email = user.Email;
             existingUser.Role = user.Role;
 
-            // 🔥 IF PASSWORD IS CHANGED
             if (!string.IsNullOrEmpty(user.Password))
             {
-                // Generate random password
+                
                 var newPassword = GenerateRandomPassword();
 
-                // Hash password
                 existingUser.Password = BCrypt.Net.BCrypt.HashPassword(newPassword);
 
-                // Force change on login
                 existingUser.IsFirstLogin = true;
 
-                // 🔥 SEND EMAIL
                 await _emailService.SendEmail(
                     existingUser.Email,
                     "Your Password Has Been Reset",
@@ -413,25 +393,7 @@ namespace InternshipTaskManagementSystem.Controllers
 
             return RedirectToAction("Projects");
         }
-        //public IActionResult DeleteMultiple(string ids)
-        //{
-        //    var idList = ids.Split(',').Select(int.Parse).ToList();
-
-        //    var users = _context.Users.Where(u => idList.Contains(u.UserId)).ToList();
-
-        //    foreach (var user in users)
-        //    {
-        //        if (user.Role != "Admin")
-        //        {
-        //            _context.Users.Remove(user);
-        //        }
-        //    }
-
-        //    _context.SaveChanges();
-
-        //    return RedirectToAction("Users");
-        //}
-
+    
 
 
         public IActionResult DeleteMultiple(string ids)
@@ -446,7 +408,7 @@ namespace InternshipTaskManagementSystem.Controllers
             {
                 if (user.Role != "Admin")
                 {
-                    // 🔥 1. DELETE TASKS FIRST
+                 
                     var tasks = _context.Tasks
                         .Where(t => t.StudentId == user.UserId
 
@@ -455,14 +417,12 @@ namespace InternshipTaskManagementSystem.Controllers
 
                     _context.Tasks.RemoveRange(tasks);
 
-                    // 🔥 2. DELETE REPORTS
                     var reports = _context.WeeklyReports
                         .Where(r => r.StudentId == user.UserId)
                         .ToList();
 
                     _context.WeeklyReports.RemoveRange(reports);
 
-                    // 🔥 3. DELETE PROJECTS
                     var projects = _context.Projects
                         .Where(p => p.StudentId == user.UserId ||
                                    (p.MentorId != null && p.MentorId == user.UserId))
@@ -470,7 +430,6 @@ namespace InternshipTaskManagementSystem.Controllers
 
                     _context.Projects.RemoveRange(projects);
 
-                    // 🔥 4. DELETE USER
                     _context.Users.Remove(user);
                 }
             }
@@ -479,23 +438,7 @@ namespace InternshipTaskManagementSystem.Controllers
 
             return RedirectToAction("Users");
         }
-        //public IActionResult FixPasswords()
-        //{
-        //    var users = _context.Users.ToList();
-
-        //    foreach (var user in users)
-        //    {
-        //        // Check if password is NOT hashed
-        //        if (!string.IsNullOrEmpty(user.Password) && !user.Password.StartsWith("$2"))
-        //        {
-        //            user.Password = BCrypt.Net.BCrypt.HashPassword(user.Password);
-        //        }
-        //    }
-
-        //    _context.SaveChanges();
-
-        //    return Content("All passwords converted to BCrypt hash successfully!");
-        //}
+     
 
     }
 }

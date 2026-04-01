@@ -124,18 +124,25 @@ namespace InternshipTaskManagementSystem.Controllers
             return RedirectToAction("ViewTasks");
         }
 
-
-        public IActionResult SubmitReport()
+        [HttpGet]
+        public IActionResult SubmitReport(int projectId)
         {
-            if (HttpContext.Session.GetString("UserRole") != "Student")
-                return RedirectToAction("Login", "Account");
+            ViewBag.ProjectId = projectId;
+
+
+            //if (HttpContext.Session.GetString("UserRole") != "Student")
+            //    return RedirectToAction("Login", "Account");
 
             return View();
         }
 
+      
+
         [HttpPost]
-        public IActionResult SubmitReport(int WeekNumber, string Content)
+        [ValidateAntiForgeryToken]
+        public IActionResult SubmitReport(int WeekNumber, string reportContent)
         {
+           
             if (HttpContext.Session.GetString("UserRole") != "Student")
                 return RedirectToAction("Login", "Account");
 
@@ -143,16 +150,35 @@ namespace InternshipTaskManagementSystem.Controllers
 
             using (SqlConnection con = new SqlConnection(_connectionString))
             {
-                string query = @"
-                    INSERT INTO WeeklyReports (StudentId, WeekNumber, Content, SubmittedOn)
-                    VALUES (@StudentId, @WeekNumber, @Content, GETDATE())";
+                con.Open();
 
-                SqlCommand cmd = new SqlCommand(query, con);
+                SqlCommand getProject = new SqlCommand(
+                    "SELECT ProjectId FROM Projects WHERE StudentId=@StudentId", con);
+
+                getProject.Parameters.AddWithValue("@StudentId", studentId);
+
+                object result = getProject.ExecuteScalar();
+
+                if (result == null)
+                {
+                    return Content("No project assigned to this student");
+
+                }
+                   
+                
+                int projectId = Convert.ToInt32(result);
+
+                SqlCommand cmd = new SqlCommand(@"
+            INSERT INTO WeeklyReports 
+            (StudentId, WeekNumber, Content, SubmittedOn, ProjectId)
+            VALUES 
+            (@StudentId, @WeekNumber, @Content, GETDATE(), @ProjectId)", con);
+
                 cmd.Parameters.AddWithValue("@StudentId", studentId);
                 cmd.Parameters.AddWithValue("@WeekNumber", WeekNumber);
-                cmd.Parameters.AddWithValue("@Content", Content);
+                cmd.Parameters.AddWithValue("@Content", reportContent);
+                cmd.Parameters.AddWithValue("@ProjectId", projectId);
 
-                con.Open();
                 cmd.ExecuteNonQuery();
             }
 

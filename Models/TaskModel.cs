@@ -17,7 +17,7 @@ namespace InternshipTaskManagementSystem.Models
         public int? MentorId { get; set; }
 
         public DateTime CreatedAt { get; set; }
-
+        public DateTime? DueDate { get; set; }
         public Project? project { get; set; }
 
         // OPTIONAL (remove if not needed)
