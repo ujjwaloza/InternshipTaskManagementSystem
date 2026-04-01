@@ -4,10 +4,10 @@ pipeline {
     stages {
 
         stage('Clone Code') {
-            steps {
-                git 'https://github.com/ujjwaloza/InternshipTaskManagementSystem.git'
-            }
-        }
+    steps {
+        git branch: 'main', url: 'https://github.com/ujjwaloza/InternshipTaskManagementSystem.git'
+    }
+}
 
         stage('Build .NET Project') {
             steps {
