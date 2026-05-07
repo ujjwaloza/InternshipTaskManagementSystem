@@ -1,0 +1,26 @@
+﻿.table {
+    width: 75%;
+    table-layout: fixed; /* 🔥 IMPORTANT */
+    border-collapse: collapse;
+    border: 1px solid #d8cecee7;
+    border-radius: 20px;
+}
+.title {
+    width: 20%; /* smaller */
+}
+
+.description {
+    width: 50%; /* bigger */
+}
+td {
+    word-wrap: break-word;
+    white-space: normal;
+}
+
+h3{
+        margin-left: 12%;
+}
+
+.badge {
+    margin-right: 12.5%;
+}

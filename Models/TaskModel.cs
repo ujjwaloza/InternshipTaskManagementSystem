@@ -20,8 +20,6 @@ namespace InternshipTaskManagementSystem.Models
         public DateTime? DueDate { get; set; }
         public Project? project { get; set; }
 
-        // OPTIONAL (remove if not needed)
-        // public User? Student { get; set; }
-        // public User? Mentor { get; set; }
+      
     }
 }
